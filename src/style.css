@@ -1,0 +1,6 @@
+.dark-mode-head{
+    @apply bg-gray-800 text-white ;
+}
+.light-mode-head{
+    @apply bg-gray-200 text-black ;
+}
