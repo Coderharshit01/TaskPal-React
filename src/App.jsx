@@ -16,17 +16,16 @@ function App() {
   return (
     <div className={`flex flex-col min-h-screen ${!isLightTheme ? "bg-gray-900" : "bg-white"}`}>
       <Header setLightTheme={setLightTheme} isLightTheme={isLightTheme} />
-      <div className="flex flex-1">
-        <SideBar isLightTheme={isLightTheme}/>
-        <div className="flex flex-1">
+      <div className="flex flex-1  ">
+     
+        <SideBar isLightTheme={isLightTheme} />
+        <div className="flex flex-1 ">  
           <Routes>
             <Route path='/' element={<Dashboard/>}  />
-            <Route path='/tasks' element={<Tasks/>}  />
+            <Route path='/tasks' element={<Tasks isLightTheme={isLightTheme}/>}  />
             <Route path='/ai' element={<Ai_page/>}  />
             <Route path='/settings' element={<Setting/>}  />
             <Route path='/pomodoro' element={<Pomodoro/>}  />
-
-
           </Routes>
         </div>
       </div>

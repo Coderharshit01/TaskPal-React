@@ -16,7 +16,7 @@ export default function SideBar({ isLightTheme }) {
   return (
     // Sidebar container with theme-aware background and text
     <aside
-      className={`flex flex-col py-6 px-4 gap-4 w-64 ${
+      className={`flex-col flex py-6 px-4 gap-4 w-64 ${
         isLightTheme ? "bg-gray-200 text-black" : "bg-gray-800 text-white"
       }`}
     >
