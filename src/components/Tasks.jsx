@@ -9,7 +9,7 @@ export default function Tasks({ isLightTheme, setTask , tasks }) {
   const [desc,setDesc] = useState("")
   const [priority,setPriority] = useState("")
   const [category,setCategory] = useState("")
-
+  const [visibleTasks, setVisibleTasks] = useState([]);
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === "Enter") {
@@ -27,11 +27,22 @@ export default function Tasks({ isLightTheme, setTask , tasks }) {
   }, [isTaskModal, title, desc, category, priority]); 
   
   
+ const handleFilter = (fltr, taskList = tasks) => {
+  setFilter(fltr);
+  if (fltr === "all") {
+    setVisibleTasks(taskList);
+  } else {
+    setVisibleTasks(taskList.filter(t => t.status === fltr));
+  }
+};
 
  const  handleAddTask = (title,desc,category,priority) =>{
   if(!title.trim() || !priority.trim() || !category.trim()) return ;
   const task = {title:title, description:desc , category:category,priority:priority,id:Date.now(),status:"pending"}
-  setTask((prev) => [...prev,task])
+  const updatedTask = [...tasks,task]
+
+  setTask(updatedTask)
+  handleFilter(filter, updatedTask)
   setTitle("")
    setCategory("")
   setDesc("")
@@ -39,17 +50,25 @@ export default function Tasks({ isLightTheme, setTask , tasks }) {
   setTaskModal(false)
  }
 
- const handleCompletion = (id) => {
+ useEffect(() => {
+  handleFilter(filter, tasks);
+}, [tasks]);
+
+
+const handleDelete = (id) =>{
+  const updT = tasks.filter((task) => task.id !== id);
+  setTask(updT);
+  handleFilter(filter, updT);
+};
+const handleCompletion = (id) => {
   const updatedTasks = tasks.map((task) =>
     task.id === id ? { ...task, status: "completed" } : task
   );
   setTask(updatedTasks);
+  handleFilter(filter, updatedTasks);
+
 };
 
-const handleDelete = (id) =>{
-  const updT = tasks.filter((task)=> task.id!==id)
-  setTask(updT)
-}
 
    return (
  
@@ -116,7 +135,7 @@ const handleDelete = (id) =>{
               return (
                 <button
                   key={type}
-                  onClick={() => setFilter(type)}
+                  onClick={() => handleFilter(type)}
                   className={`${baseStyle} ${isLightTheme ? lightThemeStyle : darkThemeStyle
                     }`}
                     
@@ -293,8 +312,8 @@ const handleDelete = (id) =>{
       )}
 
 <div className="grid grid-cols-2 gap-4 w-full px-4 py-2">
-  {tasks.length > 0 ? 
-  tasks.map((task)=>(
+  {visibleTasks.length > 0 ? 
+  visibleTasks.map((task)=>(
     <div
     className={`group relative rounded-xl shadow-md p-4 flex flex-col gap-3 border-l-4 
       ${task.priority === "high" ? "border-red-500" : task.priority === "medium" ? "border-yellow-500" : "border-green-500"}
