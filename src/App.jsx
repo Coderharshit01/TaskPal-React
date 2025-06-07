@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Route,Routes } from 'react-router-dom'
 import Header from './components/Header'
 import './style.css';
@@ -12,6 +12,20 @@ import Setting from './components/Settings';
 
 function App() {
   const [isLightTheme, setLightTheme] = useState(false)
+  const [task, setTask] = useState(() => {
+    try {
+      const stored = localStorage.getItem("tasks");
+      return stored ? JSON.parse(stored) : [];
+    } catch (e) {
+      console.log("Failed to parse tasks:", e);
+      return [];
+    }
+  });
+  
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(task));
+  }, [task]);
+  
 
   return (
     <div className={`flex flex-col min-h-screen ${!isLightTheme ? "bg-gray-900" : "bg-white"}`}>
@@ -22,7 +36,7 @@ function App() {
         <div className="flex flex-1 ">  
           <Routes>
             <Route path='/' element={<Dashboard/>}  />
-            <Route path='/tasks' element={<Tasks isLightTheme={isLightTheme}/>}  />
+            <Route path='/tasks' element={<Tasks isLightTheme={isLightTheme} setTask={setTask} tasks={task}/>}  />
             <Route path='/ai' element={<Ai_page/>}  />
             <Route path='/settings' element={<Setting/>}  />
             <Route path='/pomodoro' element={<Pomodoro/>}  />
