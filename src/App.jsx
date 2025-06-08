@@ -15,12 +15,14 @@ function App() {
   const [task, setTask] = useState(() => {
     try {
       const stored = localStorage.getItem("tasks");
-      return stored ? JSON.parse(stored) : [];
+      const parsed = JSON.parse(stored);
+      return Array.isArray(parsed) ? parsed : [];
     } catch (e) {
       console.log("Failed to parse tasks:", e);
       return [];
     }
   });
+  
   
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(task));
