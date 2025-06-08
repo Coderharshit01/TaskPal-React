@@ -41,7 +41,7 @@ function App() {
             <Route path='/tasks' element={<Tasks isLightTheme={isLightTheme} setTask={setTask} tasks={task}/>}  />
             <Route path='/ai' element={<Ai_page/>}  />
             <Route path='/settings' element={<Setting/>}  />
-            <Route path='/pomodoro' element={<Pomodoro/>}  />
+            <Route path='/pomodoro' element={<Pomodoro isLightTheme={isLightTheme}/>}   />
           </Routes>
         </div>
       </div>
