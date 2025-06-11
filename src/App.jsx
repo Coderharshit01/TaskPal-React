@@ -37,7 +37,7 @@ function App() {
         <SideBar isLightTheme={isLightTheme} />
         <div className="flex flex-1 ">  
           <Routes>
-            <Route path='/' element={<Dashboard/>}  />
+            <Route path='/' element={<Dashboard isLightTheme={isLightTheme}/>}  />
             <Route path='/tasks' element={<Tasks isLightTheme={isLightTheme} setTask={setTask} tasks={task}/>}  />
             <Route path='/ai' element={<Ai_page/>}  />
             <Route path='/settings' element={<Setting/>}  />

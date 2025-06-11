@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-
-export default function DashBoard() {
+import PomodoroWidget from "./PomodoroWidget";
+export default function DashBoard({isLightTheme}) {
     const [quote,setQuote] = useState([])
     const apiKey = import.meta.env.VITE_API_KEY;
 
@@ -64,9 +64,21 @@ export default function DashBoard() {
               {/* Shine Effect */}
               <div className="absolute inset-0 -top-2 -bottom-2 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 transform translate-x-full group-hover:translate-x-[-200%] transition-transform duration-1000"></div>
             </div>
-            
+
+           <div className=" relative p-8 bg-gradient-to-br rounded-3xl from-blue-300 via-purple-400 overflow-hidden to-pink-500  ">
+                 <div className="inset-0 absolute opacity-10">
+                 <div className=" absolute rounded-full w-32 h-32 top-0 left-0 bg-white  -translate-x-12 -translate-y-10"></div>
+                 <div className=" absolute rounded-full w-32 h-32 bottom-0 right-0 bg-white  translate-x-12 translate-y-10"></div>
+                 </div>
+                  <div className="relative z-10">
+<PomodoroWidget/>
+
+                  </div>
+           </div>
           </div>
         </div>
+
+
       </div>
     );
 }
