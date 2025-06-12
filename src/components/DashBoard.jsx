@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import PomodoroWidget from "./PomodoroWidget";
-import { XCircle, CheckCircle2Icon } from "lucide-react";
+import { XCircle, Clock ,CheckCircle2Icon } from "lucide-react";
 export default function DashBoard({isLightTheme,tasks}) {
     const [quote,setQuote] = useState([])
 
@@ -138,7 +138,7 @@ export default function DashBoard({isLightTheme,tasks}) {
         {/* Status */}
         <div>
           {task.status === "pending" ? (
-            <XCircle size={26} className="text-red-300" />
+            <Clock size={26} className="text-red-300" />
           ) : (
             <CheckCircle2Icon size={26} className="text-green-300" />
           )}
