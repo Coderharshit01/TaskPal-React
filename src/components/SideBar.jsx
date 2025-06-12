@@ -9,8 +9,6 @@ export default function SideBar({ isLightTheme }) {
     { to: "/", label: "Dashboard", icon: "📊" },
     { to: "/tasks", label: "Tasks", icon: "✅" },
     { to: "/pomodoro", label: "Pomodoro Timer", icon: "⏱️" },
-    { to: "/ai", label: "AI Assistant", icon: "🤖" },
-    // { to: "/settings", label: "Settings", icon: "⚙️" }
   ];
 
   return (

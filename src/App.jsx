@@ -5,10 +5,8 @@ import './style.css';
 import Dashboard from './components/DashBoard';
 import SideBar from './components/SideBar';
 import Tasks from './components/Tasks';
-import Ai_page from './components/ai_page';
-import { Settings } from 'lucide-react';
 import Pomodoro from './components/Pomodoro';
-import Setting from './components/Settings';
+
 
 function App() {
   const [isLightTheme, setLightTheme] = useState(false)
@@ -39,7 +37,6 @@ function App() {
           <Routes>
             <Route path='/' element={<Dashboard isLightTheme={isLightTheme} tasks={task}/>}  />
             <Route path='/tasks' element={<Tasks isLightTheme={isLightTheme} setTask={setTask} tasks={task}/>}  />
-            <Route path='/ai' element={<Ai_page/>}  />
             
             <Route path='/pomodoro' element={<Pomodoro isLightTheme={isLightTheme}/>}   />
           </Routes>
