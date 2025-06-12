@@ -39,6 +39,7 @@ export default function SideBar({ isLightTheme }) {
               }
             `}
           >
+             
             {/* Show icon and label like: 📊 Dashboard */}
             {icon} {label}
           </Link>
