@@ -22,3 +22,22 @@
 ---
 
 ## 📁 Project Structure
+Taskpal-React/
+├── public/                 # Static assets (e.g., favicon, images)
+├── src/                    # Main source code
+│   ├── components/         # Reusable React components
+│   │   ├── DashBoard.jsx
+│   │   ├── Header.jsx
+│   │   ├── Pomodoro.jsx
+│   │   ├── PomodoroWidget.jsx
+│   │   ├── Settings.jsx
+│   │   └── SideBar.jsx
+│   ├── App.jsx             # Root component
+│   ├── main.jsx            # Entry point
+│   ├── index.css           # Global styles
+│   └── style.css           # Additional styling
+├── .eslintrc.cjs           # ESLint config
+├── tailwind.config.cjs     # Tailwind CSS config
+├── vite.config.js          # Vite config
+├── package.json            # Project metadata and dependencies
+└── README.md               # Project documentation
