@@ -22,6 +22,7 @@
 ---
 
 ## 📁 Project Structure
+``` Bash
 Taskpal-React/
 ├── public/                 # Static assets (e.g., favicon, images)
 ├── src/                    # Main source code
