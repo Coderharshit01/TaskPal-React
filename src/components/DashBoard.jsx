@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import PomodoroWidget from "./PomodoroWidget";
-export default function DashBoard({isLightTheme}) {
+import { XCircle, CheckCircle2Icon } from "lucide-react";
+export default function DashBoard({isLightTheme,tasks}) {
     const [quote,setQuote] = useState([])
+
+    // If using APi nijas 
+
     const apiKey = import.meta.env.VITE_API_KEY;
 
     useEffect(() => {
@@ -19,10 +23,13 @@ export default function DashBoard({isLightTheme}) {
             }
         };
         
-        // fetchquote();
+        fetchquote();
     }, []);
 
   
+
+   
+    
     return (
         <div className=" w-full p-6    ">    
         {/* from-gray-50 to-gray-100 bg-gradient-to-br */}
@@ -65,17 +72,46 @@ export default function DashBoard({isLightTheme}) {
               <div className="absolute inset-0 -top-2 -bottom-2 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 transform translate-x-full group-hover:translate-x-[-200%] transition-transform duration-1000"></div>
             </div>
 
-           <div className=" relative p-8 bg-gradient-to-br rounded-3xl from-blue-300 via-purple-400 overflow-hidden to-pink-500  ">
+           <div className=" relative p-8 bg-gradient-to-br rounded-3xl h-52 from-blue-300 via-purple-400 overflow-hidden to-pink-500  ">
                  <div className="inset-0 absolute opacity-10">
                  <div className=" absolute rounded-full w-32 h-32 top-0 left-0 bg-white  -translate-x-12 -translate-y-10"></div>
                  <div className=" absolute rounded-full w-32 h-32 bottom-0 right-0 bg-white  translate-x-12 translate-y-10"></div>
                  </div>
                   <div className="relative z-10">
 <PomodoroWidget/>
-
                   </div>
            </div>
-          </div>
+           <div className=" relative p-8 bg-gradient-to-br rounded-3xl from-purple-600 via-pink-400 overflow-hidden to-blue-300  ">
+                    <div className="inset-0 absolute opacity-10">
+                      <div className="bg-white absolute top-0 left-0 rounded-full w-32 h-32 -translate-x-12 -translate-y-10"></div>
+                      <div className="bg-white absolute bottom-0  right-0 rounded-full w-32 h-32 translate-x-12 translate-y-10"></div>
+                    </div>
+                    <div className="relative z-10 p-2">
+                      <div className="flex w-full">
+                        <h2 className="font-bold text-3xl text-gray-300 mb-6">Current Tasks</h2>
+                      </div>
+                      <div className="flex w-full justify-around mb-1">
+                    <h2  className="text-white  text-2xl font-bold ">Tasks</h2>
+                    <h2 className="text-white text-2xl  font-bold">Priority</h2>
+                    <h2 className="text-white text-2xl font-bold">Status</h2>
+                      </div>
+                      <hr className="mb-4" />
+                    {tasks.map((task)=>(
+                      <div className="grid grid-cols-3 gap-10 my-2" key={task.id}>
+                      <div className="flex flex-col justify-around mx-16">
+                        <h2 className="text-xl text-white italic font-bold">{task.title}</h2>
+                      </div>
+                      <div className="flex flex-col justify-around ml-8 " >
+                    <h2 className={`text-xl italic font-bold ${task.priority ==="high" ? "text-red-800 " : task.priority === "medium" ? "text-yellow-300" : "text-green-400"}`}>{task.priority}</h2>
+                    </div>
+                    <div className="flex flex-col justify-around ml-8 " >
+                      <h2 className=" italic font-bold">{task.status === "pending" ? <XCircle size={26} className="text-red-400"/> : <CheckCircle2Icon size={26} className="text-green-300"/>}</h2>
+                    </div>
+                      </div>
+                    ))}
+                    </div>
+</div>
+          </div> 
         </div>
 
 
