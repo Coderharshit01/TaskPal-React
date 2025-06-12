@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 
-export default function SideBar({ isLightTheme }) {
+export default function SideBar({ isLightTheme,isSideBar }) {
   // Get the current URL path (like "/tasks", "/ai", etc.)
   const location = useLocation();
 
@@ -16,7 +16,8 @@ export default function SideBar({ isLightTheme }) {
     <aside
       className={`flex-col flex py-6 px-4 gap-4 w-64 ${
         isLightTheme ? "bg-gray-200 text-black" : "bg-gray-800 text-white"
-      }`}
+      } ${!isSideBar ? "hide-on-mobile" :"sideBarMobile"}`}
+      onClick={(e)=> e.stopPropagation()}
     >
       {/* Loop through each link and render it */}
       {links.map(({ to, label, icon }) => {

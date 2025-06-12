@@ -9,23 +9,29 @@ export default function DashBoard({isLightTheme,tasks}) {
     const apiKey = import.meta.env.VITE_API_KEY;
 
     useEffect(() => {
-        const fetchquote = async () => {
-            try {
-                const response = await fetch('https://api.api-ninjas.com/v1/quotes', {
-                    headers: {
-                        "X-Api-Key": apiKey,
-                    }
-                });
-                const data = await response.json();
-                setQuote(data[0])
-            } catch (error) {
-                console.error(error);
-            }
-        };
-        
-        fetchquote();
-    }, []);
-
+      const fetchQuote = async (attempt = 0) => {
+          if (attempt >= 5) return; // avoid infinite loop
+  
+          try {
+              const response = await fetch('https://api.api-ninjas.com/v1/quotes', {
+                  headers: {
+                      "X-Api-Key": apiKey,
+                  }
+              });
+              const data = await response.json();
+              if (data[0] && data[0].quote && data[0].quote.length < 200) {
+                  setQuote(data[0]);
+              } else {
+                  fetchQuote(attempt + 1); // retry
+              }
+          } catch (error) {
+              console.error(error);
+          }
+      };
+  
+      // fetchQuote();
+  }, []);
+  
   
 
    
@@ -46,7 +52,7 @@ export default function DashBoard({isLightTheme,tasks}) {
               {/* Content */}
               <div className="relative z-10">
                 <div className="mb-6">
-                  <h2 className="text-4xl font-bold mb-2 bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">
+                  <h2 className="text-2xl md:text-4xl font-bold mb-2 bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">
                     Good Morning, User 🌞
                   </h2>
                   <div className="flex items-center gap-2">
@@ -81,36 +87,69 @@ export default function DashBoard({isLightTheme,tasks}) {
 <PomodoroWidget/>
                   </div>
            </div>
-           <div className=" relative p-8 bg-gradient-to-br rounded-3xl from-purple-600 via-pink-400 overflow-hidden to-blue-300  ">
-                    <div className="inset-0 absolute opacity-10">
-                      <div className="bg-white absolute top-0 left-0 rounded-full w-32 h-32 -translate-x-12 -translate-y-10"></div>
-                      <div className="bg-white absolute bottom-0  right-0 rounded-full w-32 h-32 translate-x-12 translate-y-10"></div>
-                    </div>
-                    <div className="relative z-10 p-2">
-                      <div className="flex w-full">
-                        <h2 className="font-bold text-3xl text-gray-300 mb-6">Current Tasks</h2>
-                      </div>
-                      <div className="flex w-full justify-around mb-1">
-                    <h2  className="text-white  text-2xl font-bold ">Tasks</h2>
-                    <h2 className="text-white text-2xl  font-bold">Priority</h2>
-                    <h2 className="text-white text-2xl font-bold">Status</h2>
-                      </div>
-                      <hr className="mb-4" />
-                    {tasks.map((task)=>(
-                      <div className="grid grid-cols-3 gap-10 my-2" key={task.id}>
-                      <div className="flex flex-col justify-around mx-16">
-                        <h2 className="text-xl text-white italic font-bold">{task.title}</h2>
-                      </div>
-                      <div className="flex flex-col justify-around ml-8 " >
-                    <h2 className={`text-xl italic font-bold ${task.priority ==="high" ? "text-red-800 " : task.priority === "medium" ? "text-yellow-300" : "text-green-400"}`}>{task.priority}</h2>
-                    </div>
-                    <div className="flex flex-col justify-around ml-8 " >
-                      <h2 className=" italic font-bold">{task.status === "pending" ? <XCircle size={26} className="text-red-400"/> : <CheckCircle2Icon size={26} className="text-green-300"/>}</h2>
-                    </div>
-                      </div>
-                    ))}
-                    </div>
+
+           <div className="relative p-5 bg-gradient-to-br from-purple-700 via-pink-500 to-blue-500 rounded-3xl overflow-hidden shadow-lg">
+  {/* Faint background circles */}
+  <div className="inset-0 absolute opacity-10 pointer-events-none">
+    <div className="bg-white absolute top-0 left-0 rounded-full w-32 h-32 -translate-x-12 -translate-y-10"></div>
+    <div className="bg-white absolute bottom-0 right-0 rounded-full w-32 h-32 translate-x-12 translate-y-10"></div>
+  </div>
+
+  {/* Content wrapper */}
+  <div className="relative z-10 p-6 bg-black/20 rounded-2xl backdrop-blur-md">
+    <div className="flex w-full">
+      <h2 className="font-bold text-3xl text-white mb-6">Current Tasks</h2>
+    </div>
+
+    {/* Header row */}
+    <div className="grid grid-cols-3 gap-4 mb-2 text-white/90 font-semibold">
+      <h2 className="text-lg md:text-xl">Tasks</h2>
+      <h2 className="text-lg md:text-xl">Priority</h2>
+      <h2 className="text-lg md:text-xl">Status</h2>
+    </div>
+
+    <hr className="mb-4 border-white/20" />
+
+    {/* Task rows */}
+    {tasks.map((task) => (
+      <div className="grid grid-cols-3 gap-4 items-center py-2" key={task.id}>
+        {/* Task Title  */}
+        <div className="whitespace-normal break-words max-w-[200px] md:max-w-xs">
+          <h2 className="text-white text-lg md:text-xl italic font-semibold">
+            {task.title}
+          </h2>
+        </div>
+
+        {/* Priority */}
+        <div>
+          <h2
+            className={`text-lg italic font-semibold ${
+              task.priority === "high"
+                ? "text-red-400"
+                : task.priority === "medium"
+                ? "text-yellow-300"
+                : "text-green-300"
+            }`}
+          >
+            {task.priority}
+          </h2>
+        </div>
+
+        {/* Status */}
+        <div>
+          {task.status === "pending" ? (
+            <XCircle size={26} className="text-red-300" />
+          ) : (
+            <CheckCircle2Icon size={26} className="text-green-300" />
+          )}
+        </div>
+      </div>
+    ))}
+  </div>
 </div>
+
+
+
           </div> 
         </div>
 

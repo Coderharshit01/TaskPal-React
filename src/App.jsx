@@ -10,6 +10,7 @@ import Pomodoro from './components/Pomodoro';
 
 function App() {
   const [isLightTheme, setLightTheme] = useState(false)
+  const [isSideBar , setSideBar] = useState(false)
   const [task, setTask] = useState(() => {
     try {
       const stored = localStorage.getItem("tasks");
@@ -21,18 +22,17 @@ function App() {
     }
   });
   
-  
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(task));
   }, [task]);
   
 
   return (
-    <div className={`flex flex-col min-h-screen ${!isLightTheme ? "bg-gray-900" : "bg-white"}`}>
-      <Header setLightTheme={setLightTheme} isLightTheme={isLightTheme} />
+    <div className={`flex flex-col min-h-screen ${!isLightTheme ? "bg-gray-900" : "bg-white"}`} onClick={()=> setSideBar(false)}>
+      <Header setLightTheme={setLightTheme} isLightTheme={isLightTheme} setSideBar={setSideBar} isSideBar={isSideBar} />
       <div className="flex flex-1  ">
      
-        <SideBar isLightTheme={isLightTheme} />
+        <SideBar isLightTheme={isLightTheme} isSideBar={isSideBar}  />
         <div className="flex flex-1 ">  
           <Routes>
             <Route path='/' element={<Dashboard isLightTheme={isLightTheme} tasks={task}/>}  />

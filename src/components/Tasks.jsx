@@ -16,7 +16,7 @@ export default function Tasks({ isLightTheme, setTask, tasks }) {
   const [isEditing, setEditing] = useState(false);
   const [editTaskId, setEditTaskId] = useState(null);
   const [search , setSearch] = useState("")
-
+  const [showButtons , setShowButtons] = useState(false)
 
   // Keyboard listener for Enter key when modal is open
   useEffect(() => {
@@ -194,7 +194,6 @@ useEffect(()=>{
                   onClick={() => handleFilter(type)}
                   className={`${baseStyle} ${isLightTheme ? lightThemeStyle : darkThemeStyle
                     }`}
-
                 >
                   {type.charAt(0).toUpperCase() + type.slice(1)}
                 </button>
@@ -367,7 +366,8 @@ useEffect(()=>{
         </div>
       )}
 
-      <div className="grid grid-cols-2 gap-4 w-full px-4 py-2">
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full px-4 py-2">
         {visibleTasks.length > 0 ?
           visibleTasks.map((task) => (
             <div
@@ -398,9 +398,11 @@ useEffect(()=>{
               </div>
 
               {/* Buttons - absolute and hidden by default */}
-              <div className="absolute top-4 right-4 flex gap-3 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-300">
+              <div className={`mt-3 flex gap-3 sm:absolute sm:top-4 sm:right-4 sm:opacity-0 sm:pointer-events-none sm:group-hover:opacity-100 sm:group-hover:pointer-events-auto`}>
+
+
                 <button
-                  className={`flex items-center gap-1 px-3 py-1 rounded-md bg-green-500 text-white text-sm font-semibold
+                  className={`flex items-center gap-1 px-3 py-1 rounded-md bg-green-500   text-white text-sm font-semibold
          hover:bg-green-600 transition ${task.status === "completed" ? "hidden" : ""}`}
                   aria-label="Mark task complete"
                   onClick={() => handleCompletion(task.id)}

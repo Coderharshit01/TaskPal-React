@@ -143,7 +143,7 @@ useEffect(()=>{
   
   
   return (
-    <div className="flex flex-col items-center justify-between h-full p-6 w-full max-w-md mx-auto space-y-4">
+    <div className="flex flex-col items-center justify-between h-[86%] p-6 w-full max-w-md mx-auto space-y-4">
       <h2 className="text-5xl font-bold italic tracking-wide text-pink-600">
       {isBreak ? "Break !!!" : "Pomodoro"}
       </h2>
@@ -172,11 +172,11 @@ useEffect(()=>{
         </div>
 
         <div className="flex items-center justify-center gap-6">
-        <button className="p-3 rounded-full hover:bg-pink-200/30 transition" onClick={()=> resetTimer()}>
+        <button className="p-3 rounded-full sm:hover:bg-pink-200/30 transition" onClick={()=> resetTimer()}>
             <TimerReset className="w-7 h-7 text-pink-600" />
           </button>
           <button
-            className="p-3 rounded-full hover:bg-pink-200/30 transition"
+            className="p-3 rounded-full sm:hover:bg-pink-200/30 transition"
             onClick={handleTimer}
           >
             {!isTimer ? (

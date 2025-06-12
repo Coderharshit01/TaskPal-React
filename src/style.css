@@ -4,3 +4,15 @@
 .light-mode-head{
     @apply bg-gray-200 text-black ;
 }
+@media (max-width: 768px) {
+    .hide-on-mobile {
+      display: none;
+    }
+    .sideBarMobile{
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        z-index: 1900;
+    }
+}
+  
