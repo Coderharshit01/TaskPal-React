@@ -31,7 +31,6 @@ Taskpal-React/
 │   │   ├── Header.jsx
 │   │   ├── Pomodoro.jsx
 │   │   ├── PomodoroWidget.jsx
-│   │   ├── Settings.jsx
 │   │   └── SideBar.jsx
 │   ├── App.jsx             # Root component
 │   ├── main.jsx            # Entry point
