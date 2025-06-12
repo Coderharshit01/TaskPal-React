@@ -50,9 +50,9 @@ export default function Header({setLightTheme,isLightTheme}) {
       </div>
 
       <div className="flex gap-3 items-center">
-        <button className="p-1">
+        {/* <button className="p-1">
           <Settings className="hover:opacity-65 md:w-8 md:h-8 w-7 h-7" />
-        </button>
+        </button> */}
 
         {/* Toggle Button */}
         <button
