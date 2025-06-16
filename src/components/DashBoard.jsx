@@ -29,7 +29,7 @@ export default function DashBoard({isLightTheme,tasks}) {
           }
       };
   
-      // fetchQuote();
+      fetchQuote();
   }, []);
   
   
